@@ -4,3 +4,7 @@ node_modules/
 !.env.example
 dist/
 .sites-runtime/
+
+.wrangler/
+.dev.vars
+.dev.vars.*

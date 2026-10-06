@@ -44,11 +44,13 @@ Deezer currently supports shared song links in Ressonance. Do not advertise conn
 
 ## 4. Runtime and access
 
+For the new Cloudflare deployment, follow `CLOUDFLARE.md`. It uses a separate empty D1 database, verified Cloudflare Access JWTs, and new runtime secrets. The following original Sites configuration remains specific to the private legacy deployment.
+
 `APP_ORIGIN` is set to the current Site origin and `TOKEN_ENCRYPTION_KEY` is a securely generated 32-byte hex secret. Do not casually rotate or remove this key: existing provider tokens use it. Reconnect affected accounts after a planned key rotation, or implement a versioned key migration before changing it.
 
 Configure values through the hosting secret/runtime settings, not source code, chat messages, browser localStorage or `.openai/hosting.json`. Deploy a new saved version after runtime changes so they apply.
 
-The current Site is owner-private. Give named testers Site access before sending them room invite links. Sign-in currently uses ChatGPT. If the target audience needs a different consumer identity system, confirm the hosting/authentication route before launch; an invite is not a substitute for Site access.
+The current Site is owner-private. Give named testers Site access before sending them room invite links. The legacy Site uses ChatGPT sign-in; the new Cloudflare deployment uses Cloudflare Access. If the target audience needs a different consumer identity system, confirm the hosting/authentication route before launch; an invite is not a substitute for Site access.
 
 ## 5. Release acceptance
 
@@ -62,7 +64,7 @@ The current Site is owner-private. Give named testers Site access before sending
 
 ## Test evidence and limits
 
-The automated suite passes 19 integration/UI checks with actual SQLite migrations, synthetic DOM interactions and mocked music-provider responses. It does not prove that Spotify/Apple will authorize an unregistered app, that Deezer developer access is available, or that all browsers work. A Spotify Client ID is configured on the current hosted version; real account authorization and live end-to-end validation are still pending. Apple signing credentials have not been provided.
+The automated suite passes 23 integration/UI checks with actual SQLite migrations, synthetic DOM interactions and mocked music-provider responses. It does not prove that Spotify/Apple will authorize an unregistered app, that Deezer developer access is available, or that all browsers work. A Spotify Client ID is configured on the current hosted version; real account authorization and live end-to-end validation are still pending. Apple signing credentials have not been provided.
 
 ## GitHub repository and hosting handoff
 
@@ -74,6 +76,6 @@ The prepared CI workflow runs Node 24 tests and builds. Before setting up automa
 
 Source publication and application deployment are separate. The CI workflow validates the code; it does not deploy a server. No GitHub Pages app deployment is configured.
 
-## Sharing defaults in 0.3.0
+## Sharing defaults in 0.4.0
 
 New profiles start with sharing enabled by application registration code. No existing user's saved preference is overwritten. Connecting a provider shows an enabled-by-default sharing checkbox; unchecking it keeps history private. The chosen value is bound to the OAuth request and applied with the connection. A persisted opt-out prevents automatic sync on load.

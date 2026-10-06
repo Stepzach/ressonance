@@ -1,0 +1,19 @@
+{
+  "name": "ressonance",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-10-06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "AUTH_MODE": "cloudflare-access",
+    "SPOTIFY_CLIENT_ID": "95d1d69009e846fe9b53bfedbfe91b8b"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ressonance-db",
+      "database_id": "a9b7010a-2fd6-4e3e-b7af-81f795546650",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}
